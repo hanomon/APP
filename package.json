@@ -1,0 +1,34 @@
+{
+  "name": "qr-attendance-system",
+  "version": "1.0.0",
+  "description": "QR코드 기반 직원 근태관리 시스템",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "mobile",
+    "web-tablet",
+    "web-admin",
+    "shared"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:backend && npm run install:mobile && npm run install:tablet && npm run install:admin",
+    "install:backend": "cd backend && npm install",
+    "install:mobile": "cd mobile && npm install",
+    "install:tablet": "cd web-tablet && npm install",
+    "install:admin": "cd web-admin && npm install",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:tablet": "cd web-tablet && npm run dev",
+    "dev:admin": "cd web-admin && npm run dev",
+    "dev:mobile": "cd mobile && npx expo start"
+  },
+  "keywords": [
+    "attendance",
+    "qr-code",
+    "react-native",
+    "nestjs",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

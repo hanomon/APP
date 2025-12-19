@@ -1,0 +1,81 @@
+// Prisma Schema for QR Attendance System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  EMPLOYEE
+  MANAGER
+}
+
+enum AttendanceStatus {
+  CHECKED_IN
+  CHECKED_OUT
+  LATE
+  EARLY_LEAVE
+  ABSENT
+}
+
+model User {
+  id             String            @id @default(uuid())
+  email          String            @unique
+  password       String
+  name           String
+  employeeNumber String            @unique
+  department     String?
+  position       String?
+  phoneNumber    String?
+  role           UserRole          @default(EMPLOYEE)
+  isActive       Boolean           @default(true)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  
+  attendanceRecords AttendanceRecord[]
+  
+  @@map("users")
+}
+
+model AttendanceRecord {
+  id                 String            @id @default(uuid())
+  userId             String
+  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  checkInTime        DateTime
+  checkOutTime       DateTime?
+  
+  checkInLatitude    Float
+  checkInLongitude   Float
+  checkInAccuracy    Float
+  
+  checkOutLatitude   Float?
+  checkOutLongitude  Float?
+  checkOutAccuracy   Float?
+  
+  status             AttendanceStatus  @default(CHECKED_IN)
+  notes              String?
+  
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  
+  @@index([userId, checkInTime])
+  @@map("attendance_records")
+}
+
+model SystemConfig {
+  id                String   @id @default(uuid())
+  key               String   @unique
+  value             String
+  description       String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("system_config")
+}
+

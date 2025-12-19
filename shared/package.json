@@ -1,0 +1,9 @@
+{
+  "name": "@qr-attendance/shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities",
+  "main": "types.ts",
+  "types": "types.ts",
+  "license": "MIT"
+}
+
