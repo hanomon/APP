@@ -510,10 +510,40 @@ CREATE INDEX idx_user_checkin ON attendance_records(user_id, check_in_time);
 
 | 소프트웨어 | 버전 | 설치 링크 | 필수 여부 |
 |-----------|------|-----------|----------|
-| Node.js | 18+ | [다운로드](https://nodejs.org/) | ✅ 필수 |
+| Node.js | **18-20 LTS** ⚠️ | [다운로드](https://nodejs.org/) | ✅ 필수 |
 | PostgreSQL | 14+ | [다운로드](https://www.postgresql.org/) | ✅ 필수 |
 | Git | Latest | [다운로드](https://git-scm.com/) | ✅ 필수 |
-| Expo CLI | Latest | `npm install -g expo-cli` | 📱 모바일 개발 시 |
+| Expo Go 앱 | Latest | [iOS](https://apps.apple.com/app/expo-go/id982107779) / [Android](https://play.google.com/store/apps/details?id=host.exp.exponent) | 📱 모바일 개발 시 |
+
+> ⚠️ **중요**: Node.js v21+ (특히 v24)는 Expo SDK 50과 호환되지 않습니다!  
+> Node.js v20.x LTS 버전을 권장합니다. 버전 확인: `node --version`
+
+### 🪟 Windows 환경 주의사항
+
+Windows에서 개발 시 다음 사항을 확인하세요:
+
+#### Node.js 버전 확인 및 변경
+```powershell
+# 현재 Node.js 버전 확인
+node --version
+
+# v21 이상이면 v20으로 다운그레이드 필요!
+# NVM for Windows 사용 권장: https://github.com/coreybutler/nvm-windows
+```
+
+#### 회사 네트워크 SSL 인증서 문제
+회사 네트워크에서 SSL 인증서 에러 발생 시:
+```powershell
+# 임시 해결 (개발 환경만)
+$env:NODE_TLS_REJECT_UNAUTHORIZED="0"
+npm install --legacy-peer-deps
+```
+
+#### PowerShell 실행 정책
+스크립트 실행 에러 발생 시 (관리자 권한 PowerShell):
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
 ### ⚡ 5분 안에 시작하기
 
@@ -924,6 +954,27 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ---
 
+## 📝 최근 변경사항
+
+### v1.0.1 (2025-12-30)
+
+#### 🔧 버그 수정
+- **Node.js 호환성 문제 해결**: v24 호환성 이슈 해결 (v18-v20 권장)
+- **Windows 환경 개선**: Expo Metro bundler 경로 문제 우회
+- **모바일 앱 설정 간소화**: 웹 전용 `app.json` 최적화
+- **expo-linking 의존성 추가**: 필수 패키지 누락 수정
+
+#### 📚 문서 업데이트
+- **QUICKSTART.md**: Windows 환경 설정 가이드 추가
+- **README.md**: Node.js 버전 요구사항 명시
+- **문제 해결 섹션**: 실제 발생 이슈 6가지 추가
+
+#### 💡 알려진 이슈
+- **Windows + Expo**: `--tunnel` 모드는 회사 방화벽에서 차단될 수 있음 (해결: `--lan` 또는 `--web` 사용)
+- **Node.js v21+**: Expo SDK 50과 호환되지 않음 (해결: v20 다운그레이드)
+
+---
+
 ## 🗺️ 로드맵
 
 ### ✅ Phase 1 - 완료 (v1.0)
@@ -1005,6 +1056,66 @@ chore: 빌드 업무 수정
 ---
 
 ## 🐛 문제 해결
+
+<details>
+<summary><b>⚠️ Node.js 버전 호환성 에러 (Windows)</b></summary>
+
+**증상:** `Error: ENOENT: no such file or directory, mkdir '...node:sea'`
+
+**원인:** Node.js v21+ (특히 v24)가 Expo SDK 50과 호환되지 않음
+
+**해결:**
+```powershell
+# 1. 현재 버전 확인
+node --version
+
+# 2. v21 이상이면 v20 LTS로 다운그레이드
+# NVM for Windows 권장: https://github.com/coreybutler/nvm-windows
+
+# 3. 캐시 삭제 및 재설치
+cd mobile
+Remove-Item -Recurse -Force node_modules,.expo
+npm install --legacy-peer-deps
+```
+
+**권장 버전:** Node.js v18.x ~ v20.x
+</details>
+
+<details>
+<summary><b>🔒 npm install SSL 인증서 에러</b></summary>
+
+**증상:** `self-signed certificate in certificate chain`
+
+**원인:** 회사 네트워크 방화벽/프록시
+
+**해결:** (개발 환경만)
+```powershell
+# 임시 해결
+$env:NODE_TLS_REJECT_UNAUTHORIZED="0"
+npm install --legacy-peer-deps
+```
+
+**영구 해결:** 회사 SSL 인증서를 Node.js에 추가하거나 프록시 설정 확인
+</details>
+
+<details>
+<summary><b>📱 Expo 모바일 앱 실행 에러</b></summary>
+
+**증상:** `Unable to resolve "expo-linking"` 또는 `there was a problem running the requested app`
+
+**해결:**
+```powershell
+cd mobile
+npm install expo-linking --legacy-peer-deps
+Remove-Item -Recurse -Force .expo
+npx expo start --web
+```
+
+**Windows에서 권장 실행 방법:**
+- ✅ `--web` (브라우저)
+- ✅ `--lan` (같은 Wi-Fi의 실제 폰)
+- ❌ `--tunnel` (방화벽에서 차단될 수 있음)
+</details>
 
 <details>
 <summary><b>데이터베이스 연결 실패</b></summary>
