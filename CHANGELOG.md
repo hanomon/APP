@@ -16,13 +16,19 @@
 - **의존성**: `expo-linking` 패키지 누락 문제 해결
 
 ### 📚 문서화 (Documentation)
+- **EXECUTIVE_SUMMARY.md**: 경영진/관리자용 비즈니스 가치 및 ROI 분석 보고서 신규 작성
+  - 비용 절감 효과 분석
+  - 투자 수익률(ROI) 계산
+  - 도입 효과 사례
+  - 경쟁 우위 분석
 - **QUICKSTART.md**: Windows 환경 설정 가이드 및 주의사항 추가
 - **README.md**: 
   - Node.js 버전 요구사항 명시 (v18-v20 LTS)
   - Windows 환경 주의사항 섹션 추가
   - 문제 해결 가이드 확장 (6가지 일반적인 문제)
   - 최근 변경사항 섹션 추가
-- **변경 이력**: CHANGELOG.md 파일 생성
+  - 경영진 보고서 링크 추가
+- **CHANGELOG.md**: 변경 이력 파일 생성
 
 ### ⚠️ 알려진 이슈 (Known Issues)
 - **Node.js v21+**: Expo SDK 50과 호환되지 않음 → v20 LTS 사용 권장

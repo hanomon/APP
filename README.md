@@ -11,11 +11,11 @@
 
 **GPS 위치 검증과 HMAC 서명을 활용한 엔터프라이즈급 근태관리 솔루션**
 
+[💼 경영진 보고서](EXECUTIVE_SUMMARY.md) •
 [빠른 시작](#-빠른-시작) •
 [기능](#-주요-기능) •
 [아키텍처](#-시스템-아키텍처) •
-[문서](#-문서) •
-[기여](#-기여하기)
+[문서](#-문서)
 
 </div>
 
@@ -43,6 +43,8 @@
 ## 🎯 프로젝트 소개
 
 QR코드 기반 직원 근태관리 시스템은 **GPS 위치 검증**과 **HMAC-SHA256 암호화 서명**을 활용하여 부정 출퇴근을 방지하는 현대적인 근태관리 솔루션입니다.
+
+> 💼 **경영진/관리자이신가요?** → [**비즈니스 가치 및 ROI 분석 보고서 보기**](EXECUTIVE_SUMMARY.md)
 
 ### 💡 왜 이 시스템인가?
 
@@ -944,13 +946,15 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ## 📚 문서
 
-| 문서 | 설명 | 링크 |
-|------|------|------|
-| 📖 **QUICKSTART.md** | 5분 안에 시작하기 | [보기](./QUICKSTART.md) |
-| 📘 **SETUP_GUIDE.md** | 상세 설치 가이드 | [보기](./SETUP_GUIDE.md) |
-| 🏗️ **ARCHITECTURE.md** | 시스템 아키텍처 | [보기](./ARCHITECTURE.md) |
-| 🚢 **DEPLOYMENT.md** | 배포 가이드 | [보기](./DEPLOYMENT.md) |
-| 📊 **PROJECT_SUMMARY.md** | 프로젝트 요약 | [보기](./PROJECT_SUMMARY.md) |
+| 문서 | 대상 | 설명 | 링크 |
+|------|------|------|------|
+| 💼 **EXECUTIVE_SUMMARY.md** | 경영진/관리자 | **비즈니스 가치 및 ROI 분석** | [📊 보기](./EXECUTIVE_SUMMARY.md) |
+| 📖 **QUICKSTART.md** | 개발자 | 5분 안에 시작하기 | [보기](./QUICKSTART.md) |
+| 📘 **SETUP_GUIDE.md** | 개발자 | 상세 설치 가이드 | [보기](./SETUP_GUIDE.md) |
+| 🏗️ **ARCHITECTURE.md** | 개발자 | 시스템 아키텍처 | [보기](./ARCHITECTURE.md) |
+| 🚢 **DEPLOYMENT.md** | DevOps | 배포 가이드 | [보기](./DEPLOYMENT.md) |
+| 📊 **PROJECT_SUMMARY.md** | 모두 | 프로젝트 요약 | [보기](./PROJECT_SUMMARY.md) |
+| 📝 **CHANGELOG.md** | 모두 | 변경 이력 | [보기](./CHANGELOG.md) |
 
 ---
 
